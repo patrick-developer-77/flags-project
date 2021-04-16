@@ -7,20 +7,22 @@ import CountriesGrid from './components/CountriesGrid'
 import SingleCountry from './components/SingleCountry'
 
 function App() {
-  return (
-    <Router>
-      <Navbar />
-      <Container>
-      <Switch>
-          <Route path="/" exact>
-            <SearchBar />
-            <CountriesGrid />
-          </Route>
-          <Route path="/country/:countryName" component={ SingleCountry } />
-        </Switch>
-      </Container>
-    </Router>
-  );
+	return (
+		<Router>
+			<Navbar />
+			<Container>
+				<Switch>
+					<Route path="/" exact>
+						<SearchBar />
+						<CountriesGrid />
+					</Route>
+					<Route path="/country/:countryName">
+						<SingleCountry />
+					</Route>
+				</Switch>
+			</Container>
+		</Router>
+	);
 }
 
 export default App;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import BorderCountry from './BorderCountry'
 
 const SingleCountry = () => {
 	const { countryName } = useParams()
@@ -54,7 +55,14 @@ const SingleCountry = () => {
 									</p>
 								</div>
 							</div>
-							<strong>Border Countries:</strong> { item.borders.map(border => <Link to={`/country/${border.name}/`} className="btn btn-light btn-sm">{border}</Link>) }
+							<strong>Border Countries:</strong> { item.borders.map(border => {
+								return (
+									<>
+										{/* <Link to={`/country/${border.name}/`} className="btn btn-light btn-sm" style={{marginRight: '8px'}}>{border}</Link> */}
+										<BorderCountry abbreviation={border}>{border}</BorderCountry>
+									</>
+								)
+							}) }
 						</div>
 					</div>
 				</div>
