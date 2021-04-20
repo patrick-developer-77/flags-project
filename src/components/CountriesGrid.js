@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Container from './Container'
 
 const CountriesGrid = () => {
-	let history = useHistory()
 	const [countries, setCountries] = useState({})
 
 	useEffect(() => {
@@ -16,25 +15,25 @@ const CountriesGrid = () => {
 		setCountries(data)
 	}
 
-	const redirect = (path) => {
-		history.push(`country/${path}/`)
-	}
-
 	return (
 		<Container>
 			<div className="countries-grid">
 				{Object.entries(countries).map(([key, value]) => (
-					<div className="card" id={key} onClick={() => redirect(value.name)} key={key}>
-						<img src={value.flag} alt={value.name} className="img-fluid" />
-						<div className="card-body">
-							<h5 className="card-title">{value.name}</h5>
-							<p>
-								<strong>Population:</strong> {value.population}<br />
-								<strong>Region:</strong> {value.region}<br />
-								<strong>Capital:</strong> {value.capital}
-							</p>
+					<Link to={`country/${value.alpha3Code}`} key={key}>
+						<div className="card">
+							<div className="img-container">
+								<img src={value.flag} alt={value.name} className="img-fluid" />
+							</div>
+							<div className="card-body">
+								<h5 className="card-title">{value.name}</h5>
+								<p>
+									<strong>Population:</strong> {value.population}<br />
+									<strong>Region:</strong> {value.region}<br />
+									<strong>Capital:</strong> {value.capital}
+								</p>
+							</div>
 						</div>
-					</div>
+					</Link>
 				))}
 			</div>
 		</Container>
