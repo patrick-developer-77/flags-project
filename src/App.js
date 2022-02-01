@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 // import SearchBar from './components/SearchBar'
 import { Container } from 'react-bootstrap'
@@ -8,20 +8,21 @@ import SingleCountry from './components/SingleCountry'
 
 function App() {
 	return (
-		<Router>
+    <BrowserRouter>
 			<Navbar />
-			<Container>
-				<Switch>
-					<Route path="/country/:id">
-						<SingleCountry />
-					</Route>
-					<Route path="/">
-						{/* <SearchBar /> */}
-						<CountriesGrid />
-					</Route>
-				</Switch>
-			</Container>
-		</Router>
+			<main>
+				<Container>
+					<Switch>
+						<Route path="/country/:id">
+							<SingleCountry />
+						</Route>
+						<Route exact path="/">
+							<CountriesGrid />
+						</Route>
+					</Switch>
+				</Container>
+			</main>
+		</BrowserRouter>
 	);
 }
 

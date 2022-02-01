@@ -6,26 +6,21 @@ const SingleCountry = () => {
 	const history = useHistory()
 	const { id } = useParams()
 	const [country, setCountry] = useState([])
-	const [isError, setIsError] = useState(null)
 	const [isLoading, setIsLoading] = useState(true)
 
 	useEffect(() => {
-		const url = `https://restcountries.eu/rest/v2/alpha/${id}`
-		const fetchCountry = async () => {
-			try {
-				const res = await fetch(url)
-				const json = await res.json()
-				setCountry(json)
-				setIsLoading(false)
-			} catch(e) {
-				setIsError(e)
-			}
-		}
 		fetchCountry()
 	}, [id])
 
-	if (isError) return 'Failed to load resource';
-  return isLoading ? 'Loading...' : (
+	const fetchCountry = async () => {
+		const response = await fetch(`https://restcountries.com/v2/alpha/${id}`)
+		const json = await response.json()
+		console.log(json)
+		setIsLoading(false)
+		setCountry(json)
+	}
+
+	return isLoading ? 'Loading...' : (
 		<>
 			<div key={country.id}>
 				<button className="btn btn-light" onClick={() => history.goBack()}>Back</button>
@@ -46,20 +41,21 @@ const SingleCountry = () => {
 							</div>
 							<div className="col">
 								<p><strong>Top Level Domain:</strong> {country.topLevelDomain}<br />
-								<strong>Currencies:</strong> {country.currencies.map(currency => <span key={currency.name}>{currency.name}</span>) }<br />
-								<strong>Language:</strong> {country.languages.map(lang => <span key={lang.name}>{lang.name}, </span> )}
+								{console.log(country.currencies)}
+								{/* <strong>Currencies:</strong> {country.currencies.map(currency => <span key={currency.name}>{currency.name}</span>) }<br /> */}
+								{/* <strong>Language:</strong> {country.languages.map(lang => <span key={lang.name}>{lang.name}, </span> )} */}
 								</p>
 							</div>
 						</div>
-						<strong>Border Countries:</strong> {
+						{/* <strong>Border Countries:</strong> {
 							country.borders.map(border => (
 								<>
-									{/* <Link to={`/country/${border}/`} key={border}>
+									<Link to={`/country/${border}/`} key={border}>
 										<button style={{padding: '5px 10px', marginRight: '1rem'}}>{border}</button>
-									</Link> */}
+									</Link>
 									<BorderCountry key={border.numericCode} abbreviation={border}>{border}</BorderCountry>
 								</>
-							))}
+							))} */}
 					</div>
 				</div>
 			</div>
